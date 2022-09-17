@@ -39,17 +39,42 @@
       </form>
     </div>
 
-    <ul>
-      <% for(var i=0; i<comments.length; i++) {%>
-        <li class="col-6 justify-content-between mt-5">
-          <%= comments[i].user%><br>
-          <%= comments[i].comment%><br>
-          <%= comments[i].createdAt%><br>
-          <%= comments[i].likes%>
-        </li>
-      <% } %>
-    </ul>
+    <div>
 
+      <ul>
+        <% for(var i=0; i<comments.length; i++) {%>
+          <li class="col-6 justify-content-between mt-5 border rounded list-unstyled p-2">
+            <h5><%= comments[i].userName %></h5>
+            <span><%= comments[i].createdAt%></span>
+            <p><%= comments[i].comment%></p>
+
+            <div class="d-flex flex-row justify-content-between">
+              <div class="d-flex flex-row justify-content-start">
+                <form
+                  class=""
+                  action="/post/likePost/<%= post.id %>?_method=PUT"
+                  method="POST"
+                >
+                  <button class="btn-sm btn-primary fa fa-thumbs-up" type="submit"></button>
+                </form>
+
+                <div class="mx-2"><%= comments[i].likes%></div>
+
+              </div>
+              
+              <form
+                action="/post/deletePost/<%= post.id %>?_method=DELETE"
+                method="POST"
+                class="p-0"
+              >
+                <button class="btn-sm btn-primary fa fa-comment-slash" type="submit"></button>
+              </form>
+
+            </div>
+          </li>
+        <% } %>
+      </ul>
+    </div>
 
     <div class="col-6 mt-5">
       <a class="btn btn-primary" href="/profile">Return to Profile</a>
